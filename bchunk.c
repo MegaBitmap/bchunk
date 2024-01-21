@@ -19,12 +19,13 @@
   */
 
 #define _GNU_SOURCE
+#include "asprintf.h"
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
-#include <unistd.h>
+#include "unistd.h"
 
 #define VERSION "1.2.3"
 #define USAGE "Usage: bchunk [-t] [-v] [-r] [-p (PSX)] [-w (wav)] [-s (swabaudio)]\n" \
@@ -73,6 +74,9 @@
 
 #include <inttypes.h>
 #ifdef _WIN32
+#include "getopt.h"
+#define strcasecmp _stricmp
+#define strdupa(a) strcpy((char*)_alloca(strlen(a) + 1), a)
 #include <winsock2.h>
 #else
 #include <netinet/in.h>
